@@ -7,14 +7,14 @@ inherit autotools eutils
 
 MyPN=secp256k1-zkp
 DESCRIPTION="Experimental fork of libsecp256k1 with support for Pedersen commitments and range proofs"
-HOMEPAGE="https://github.com/ElementsProject/${MyPN}"
+HOMEPAGE="https://github.com/ElementsProject/secp256k1-zkp"
 COMMITHASH="11af7015de624b010424273be3d91f117f172c82"
-SRC_URI="https://github.com/ElementsProject/${MyPN}/archive/${COMMITHASH}.tar.gz -> ${PN}-v${PV}.tgz"
+SRC_URI="${HOMEPAGE}/archive/${COMMITHASH}.tar.gz -> ${PN}-v${PV}.tgz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
-IUSE="+asm ecdh endomorphism experimental generator gmp java musig rangeproof +recovery schnorrsig surjectionproof test test-openssl"
+KEYWORDS="~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
+IUSE="+asm ecdh endomorphism experimental generator gmp java musig rangeproof +recovery schnorrsig surjectionproof test test-openssl whitelist"
 RESTRICT="!test? ( test )"
 
 REQUIRED_USE="
@@ -27,6 +27,7 @@ REQUIRED_USE="
 	schnorrsig? ( experimental )
 	surjectionproof? ( experimental rangeproof )
 	test-openssl? ( test )
+	whitelist? ( experimental rangeproof )
 "
 RDEPEND="
 	gmp? ( dev-libs/gmp:0= )
@@ -79,6 +80,7 @@ src_configure() {
 		$(use_enable {,module-}recovery) \
 		$(use_enable {,module-}schnorrsig) \
 		$(use_enable {,module-}surjectionproof) \
+		$(use_enable {,module-}whitelist) \
 		--disable-static
 }
 
