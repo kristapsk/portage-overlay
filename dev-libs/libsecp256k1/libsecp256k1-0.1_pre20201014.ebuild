@@ -14,7 +14,7 @@ SRC_URI="https://github.com/bitcoin-core/${MyPN}/archive/${COMMITHASH}.tar.gz ->
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 x86 ~amd64-linux ~x86-linux"
-IUSE="+asm ecdh endomorphism experimental gmp java +recovery test test-openssl"
+IUSE="+asm ecdh endomorphism experimental gmp java +recovery +schnorrsig test test-openssl"
 RESTRICT="!test? ( test )"
 
 REQUIRED_USE="
@@ -64,6 +64,7 @@ src_configure() {
 		--with-asm=$asm_opt \
 		--with-bignum=$(usex gmp gmp no) \
 		$(use_enable recovery module-recovery) \
+		$(use_enable schnorrsig module-schnorrsig) \
 		--disable-static
 }
 
