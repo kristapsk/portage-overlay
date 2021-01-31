@@ -19,7 +19,7 @@ RESTRICT="!test? ( test )"
 
 RDEPEND="
 	>=dev-libs/boost-1.52.0:=[threads(+)]
-	>dev-libs/libsecp256k1-0.1_pre20170321:=[recovery]
+	>=dev-libs/libsecp256k1-0.1_pre20201014:=[recovery]
 	>=dev-libs/univalue-1.0.4:=
 	dev-qt/qtcore:5
 	dev-qt/qtgui:5

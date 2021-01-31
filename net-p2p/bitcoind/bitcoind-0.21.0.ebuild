@@ -21,7 +21,7 @@ DEPEND="
 	acct-user/bitcoin
 	>=dev-libs/boost-1.52.0:=[threads(+)]
 	dev-libs/libevent:=
-	>dev-libs/libsecp256k1-0.1_pre20170321:=[recovery]
+	>=dev-libs/libsecp256k1-0.1_pre20201014:=[recovery]
 	>=dev-libs/univalue-1.0.4:=
 	system-leveldb? ( virtual/bitcoin-leveldb )
 	upnp? ( >=net-libs/miniupnpc-1.9.20150916:= )
