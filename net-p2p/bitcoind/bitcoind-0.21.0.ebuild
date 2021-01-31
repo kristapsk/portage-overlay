@@ -21,7 +21,6 @@ DEPEND="
 	acct-user/bitcoin
 	>=dev-libs/boost-1.52.0:=[threads(+)]
 	dev-libs/libevent:=
-	>=dev-libs/libsecp256k1-0.1_pre20201014:=[recovery,schnorrsig]
 	>=dev-libs/univalue-1.0.4:=
 	system-leveldb? ( virtual/bitcoin-leveldb )
 	upnp? ( >=net-libs/miniupnpc-1.9.20150916:= )
@@ -68,7 +67,6 @@ src_prepare() {
 	echo "#define BUILD_SUFFIX gentoo${PVR#${PV}}" >src/obj/build.h || die
 
 	eautoreconf
-	rm -r src/secp256k1 || die
 	if use system-leveldb; then
 		rm -r src/leveldb || die
 	fi
@@ -95,7 +93,6 @@ src_configure() {
 		--disable-ccache
 		--disable-static
 		$(use_with system-leveldb)
-		--with-system-libsecp256k1
 		--with-system-univalue
 	)
 	econf "${my_econf[@]}"
