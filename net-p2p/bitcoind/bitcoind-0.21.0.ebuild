@@ -13,7 +13,7 @@ SRC_URI="https://github.com/bitcoin/bitcoin/archive/v${PV}.tar.gz -> bitcoin-v${
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 x86 ~amd64-linux ~x86-linux"
-IUSE="+asm examples +system-leveldb test upnp +wallet zeromq"
+IUSE="+asm examples system-leveldb test upnp +wallet zeromq"
 RESTRICT="!test? ( test )"
 
 DEPEND="
