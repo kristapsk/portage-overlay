@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<repositories version="1.0">
+	<repo priority="50" quality="experimental" status="unofficial">
+		<name>kristapsk</name>
+		<description>Various stuff by Kristaps Kaupe.</description>
+		<homepage>https://kristapsk.lv</homepage>
+		<owner>
+			<email>kristaps@blogiem.lv</email>
+		</owner>
+		<source type="git">https://github.com/kristapsk/portage-overlay.git</source>
+	</repo>
+</repositories>
