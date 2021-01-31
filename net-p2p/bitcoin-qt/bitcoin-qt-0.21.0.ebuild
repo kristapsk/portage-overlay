@@ -6,22 +6,15 @@ EAPI=7
 DB_VER="4.8"
 inherit autotools bash-completion-r1 db-use desktop xdg-utils
 
-BITCOINCORE_COMMITHASH="bf0dc356ac4a2bdeda1908af021dea2de0dfb35a"
-KNOTS_PV="${PV}.knots20200815"
-KNOTS_P="bitcoin-${KNOTS_PV}"
-
 DESCRIPTION="An end-user Qt GUI for the Bitcoin crypto-currency"
-HOMEPAGE="https://bitcoincore.org/ https://bitcoinknots.org/"
-SRC_URI="
-	https://github.com/bitcoin/bitcoin/archive/${BITCOINCORE_COMMITHASH}.tar.gz -> bitcoin-v${PV}.tar.gz
-	https://bitcoinknots.org/files/0.20.x/${KNOTS_PV}/${KNOTS_P}.patches.txz -> ${KNOTS_P}.patches.tar.xz
-"
+HOMEPAGE="https://bitcoincore.org/"
+SRC_URI="https://github.com/bitcoin/bitcoin/archive/v${PV}.tar.gz -> bitcoin-v${PV}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
 
-IUSE="+asm dbus kde knots +qrcode +system-leveldb test upnp +wallet zeromq"
+IUSE="+asm dbus kde +qrcode +system-leveldb test upnp +wallet zeromq"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
@@ -47,10 +40,6 @@ BDEPEND="
 	>=sys-devel/autoconf-2.69
 	>=sys-devel/automake-1.13
 	dev-qt/linguist-tools:5
-	knots? (
-		gnome-base/librsvg
-		media-gfx/imagemagick[png]
-	)
 "
 
 DOCS=(
@@ -66,18 +55,12 @@ DOCS=(
 	doc/tor.md
 )
 
-S="${WORKDIR}/bitcoin-${BITCOINCORE_COMMITHASH}"
+S="${WORKDIR}/bitcoin-${PV}"
 
 pkg_pretend() {
-	if use knots; then
-		elog "You are building ${PN} from Bitcoin Knots."
-		elog "For more information, see:"
-		elog "https://bitcoinknots.org/files/0.20.x/${KNOTS_PV}/${KNOTS_P}.desc.html"
-	else
-		elog "You are building ${PN} from Bitcoin Core."
-		elog "For more information, see:"
-		elog "https://bitcoincore.org/en/2020/08/01/release-${PV}/"
-	fi
+	elog "You are building ${PN} from Bitcoin Core."
+	elog "For more information, see:"
+	elog "https://bitcoincore.org/en/2020/08/01/release-${PV}/"
 	elog "Replace By Fee policy is now always enabled by default: Your node will"
 	elog "preferentially mine and relay transactions paying the highest fee, regardless"
 	elog "of receive order. To disable RBF, set mempoolreplacement=never in bitcoin.conf"
@@ -88,16 +71,6 @@ src_prepare() {
 
 	# Save the generic icon for later
 	cp src/qt/res/src/bitcoin.svg bitcoin128.svg || die
-
-	local knots_patchdir="${WORKDIR}/${KNOTS_P}.patches/"
-
-	eapply "${knots_patchdir}/${KNOTS_P}.syslibs.patch"
-
-	if use knots; then
-		eapply "${knots_patchdir}/${KNOTS_P}.f.patch"
-		eapply "${knots_patchdir}/${KNOTS_P}.branding.patch"
-		eapply "${knots_patchdir}/${KNOTS_P}.ts.patch"
-	fi
 
 	eapply_user
 
@@ -146,14 +119,8 @@ src_install() {
 
 	insinto /usr/share/icons/hicolor/scalable/apps/
 	doins bitcoin128.svg
-	if use knots; then
-		newins src/qt/res/src/bitcoin.svg bitcoinknots.svg
-	fi
 
 	cp "${FILESDIR}/org.bitcoin.bitcoin-qt.desktop" "${T}" || die
-	if ! use knots; then
-		sed -i 's/Knots/Core/;s/^\(Icon=\).*$/\1bitcoin128/' "${T}/org.bitcoin.bitcoin-qt.desktop" || die
-	fi
 	domenu "${T}/org.bitcoin.bitcoin-qt.desktop"
 
 	use zeromq && dodoc doc/zmq.md
