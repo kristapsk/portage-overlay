@@ -4,8 +4,10 @@
 	<use>
 		<flag name="asm">Enable x86_64 assembly optimisation</flag>
 		<flag name="ecdh">Enable ECDH shared secret computation</flag>
-		<flag name="endomorphism">Enable endomorphism</flag>
+		<flag name="ecdsa-s2c">Enable ECDSA sign-to-contract module</flag>
 		<flag name="experimental">Allow experimental USE flags</flag>
+		<flag name="external-default-callbacks">Enable external default callback functions</flag>
+		<flag name="extrakeys">Enable extrakeys module</flag>
 		<flag name="generator">Enable NUMS generator module</flag>
 		<flag name="musig">Enable MuSig module</flag>
 		<flag name="rangeproof">Enable Pedersen / zero-knowledge range proofs module</flag>
