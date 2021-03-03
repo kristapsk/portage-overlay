@@ -119,6 +119,15 @@ src_install() {
 
 	cp "${FILESDIR}/org.bitcoin.bitcoin-qt.desktop" "${T}" || die
 	domenu "${T}/org.bitcoin.bitcoin-qt.desktop"
+	if use test; then
+		for testnet in regtest testnet signet; do
+			cat "${FILESDIR}/org.bitcoin.bitcoin-qt.desktop" | \
+				sed "s/Name=Bitcoin Core/Name=Bitcoin Core ($testnet)/" | \
+				sed "s/Exec=bitcoin-qt /Exec=bitcoin-qt -$testnet/" > \
+					"${T}/org.bitcoin.bitcoin-qt-$testnet.desktop"
+			domenu "${T}/org.bitcoin.bitcoin-qt-$testnet.desktop"
+		done
+	fi
 
 	use zeromq && dodoc doc/zmq.md
 
