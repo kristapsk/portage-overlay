@@ -6,15 +6,20 @@ EAPI=7
 DB_VER="4.8"
 inherit autotools bash-completion-r1 db-use desktop xdg-utils
 
+KRISTAPSK_PV="${PV}.20210502"
+
 DESCRIPTION="An end-user Qt GUI for the Bitcoin crypto-currency"
 HOMEPAGE="https://bitcoincore.org/"
-SRC_URI="https://github.com/bitcoin/bitcoin/archive/v${PV}.tar.gz -> bitcoin-v${PV}.tar.gz"
+SRC_URI="
+	https://github.com/bitcoin/bitcoin/archive/v${PV}.tar.gz -> bitcoin-v${PV}.tar.gz
+	https://github.com/kristapsk/bitcoin-core-patches/archive/refs/tags/v${KRISTAPSK_PV}.tar.gz -> bitcoin-kristapsk-patches-${KRISTAPSK_PV}.tar.gz
+"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
 
-IUSE="+asm dbus kde +qrcode system-leveldb test upnp +wallet zeromq"
+IUSE="+asm dbus kde +kristapsk-patches +qrcode system-leveldb test upnp +wallet zeromq"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
@@ -70,6 +75,12 @@ src_prepare() {
 
 	# Save the generic icon for later
 	cp src/qt/res/src/bitcoin.svg bitcoin128.svg || die
+
+	if use kristapsk-patches; then
+		for f in ${WORKDIR}/bitcoin-core-patches-${KRISTAPSK_PV}/*.patch; do
+			eapply "$f"
+		done
+	fi
 
 	eapply_user
 

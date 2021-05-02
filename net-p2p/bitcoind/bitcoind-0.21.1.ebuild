@@ -6,14 +6,19 @@ EAPI=7
 DB_VER="4.8"
 inherit autotools bash-completion-r1 db-use systemd
 
+KRISTAPSK_PV="${PV}.20210502"
+
 DESCRIPTION="Original Bitcoin crypto-currency wallet for automated services"
 HOMEPAGE="https://bitcoincore.org/"
-SRC_URI="https://github.com/bitcoin/bitcoin/archive/v${PV}.tar.gz -> bitcoin-v${PV}.tar.gz"
+SRC_URI="
+	https://github.com/bitcoin/bitcoin/archive/v${PV}.tar.gz -> bitcoin-v${PV}.tar.gz
+	https://github.com/kristapsk/bitcoin-core-patches/archive/refs/tags/v${KRISTAPSK_PV}.tar.gz -> bitcoin-kristapsk-patches-${KRISTAPSK_PV}.tar.gz
+"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 x86 ~amd64-linux ~x86-linux"
-IUSE="+asm examples system-leveldb test upnp +wallet zeromq"
+IUSE="+asm examples +kristapsk-patches system-leveldb test upnp +wallet zeromq"
 RESTRICT="!test? ( test )"
 
 DEPEND="
@@ -59,6 +64,12 @@ pkg_pretend() {
 
 src_prepare() {
 	sed -i 's/^\(complete -F _bitcoind bitcoind\) bitcoin-qt$/\1/' contrib/${PN}.bash-completion || die
+
+	if use kristapsk-patches; then
+		for f in ${WORKDIR}/bitcoin-core-patches-${KRISTAPSK_PV}/*.patch; do
+			eapply "$f"
+		done
+	fi
 
 	default
 
