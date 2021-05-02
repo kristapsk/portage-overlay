@@ -40,6 +40,7 @@ S="${WORKDIR}/bitcoin-${PV}"
 pkg_pretend() {
 	elog "You are building ${PN} from Bitcoin Core."
 	elog "For more information, see:"
+	elog "https://bitcoincore.org/en/releases/${PV}/"
 }
 
 src_prepare() {

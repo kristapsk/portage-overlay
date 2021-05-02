@@ -63,7 +63,11 @@ S="${WORKDIR}/bitcoin-${PV}"
 pkg_pretend() {
 	elog "You are building ${PN} from Bitcoin Core."
 	elog "For more information, see:"
-	elog "https://bitcoincore.org/en/2020/08/01/release-${PV}/"
+	elog "https://bitcoincore.org/en/releases/${PV}/"
+	if use kristapsk-patches; then
+		elog "Additional patches on top are applied, see:"
+		elog "https://github.com/kristapsk/bitcoin-core-patches/tree/v${PV}"
+	fi
 	elog "Replace By Fee policy is now always enabled by default: Your node will"
 	elog "preferentially mine and relay transactions paying the highest fee, regardless"
 	elog "of receive order. To disable RBF, set mempoolreplacement=never in bitcoin.conf"
