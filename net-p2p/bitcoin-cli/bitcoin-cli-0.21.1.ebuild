@@ -3,11 +3,14 @@
 
 EAPI=7
 
-inherit autotools bash-completion-r1
+inherit autotools bash-completion-r1 verify-sig
 
 DESCRIPTION="Command-line JSON-RPC client specifically for interfacing with bitcoind"
 HOMEPAGE="https://bitcoincore.org/"
-SRC_URI="https://github.com/bitcoin/bitcoin/archive/v${PV}.tar.gz -> bitcoin-v${PV}.tar.gz"
+SRC_URI="
+	https://github.com/bitcoin/bitcoin/archive/v${PV}.tar.gz -> bitcoin-v${PV}.tar.gz
+	verify-sig? ( https://github.com/kristapsk/bitcoin-core-patches/releases/download/v${KRISTAPSK_PV}/bitcoin-v${PV}.tar.gz.asc )
+"
 
 LICENSE="MIT"
 SLOT="0"
@@ -23,11 +26,14 @@ RDEPEND="${DEPEND}"
 BDEPEND="
 	>=sys-devel/autoconf-2.69
 	>=sys-devel/automake-1.13
+	verify-sig? ( app-crypt/openpgp-keys-kristapsk )
 "
 
 DOCS=(
 	doc/release-notes.md
 )
+
+VERIFY_SIG_OPENPGP_KEY_PATH=${BROOT}/usr/share/openpgp-keys/KristapsKaupe.asc
 
 S="${WORKDIR}/bitcoin-${PV}"
 

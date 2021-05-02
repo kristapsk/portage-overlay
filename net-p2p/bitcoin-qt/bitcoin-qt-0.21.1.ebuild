@@ -4,7 +4,7 @@
 EAPI=7
 
 DB_VER="4.8"
-inherit autotools bash-completion-r1 db-use desktop xdg-utils
+inherit autotools bash-completion-r1 db-use desktop xdg-utils verify-sig
 
 KRISTAPSK_PV="${PV}.20210502"
 
@@ -13,6 +13,10 @@ HOMEPAGE="https://bitcoincore.org/"
 SRC_URI="
 	https://github.com/bitcoin/bitcoin/archive/v${PV}.tar.gz -> bitcoin-v${PV}.tar.gz
 	https://github.com/kristapsk/bitcoin-core-patches/archive/refs/tags/v${KRISTAPSK_PV}.tar.gz -> bitcoin-kristapsk-patches-${KRISTAPSK_PV}.tar.gz
+	verify-sig? (
+		https://github.com/kristapsk/bitcoin-core-patches/releases/download/v${KRISTAPSK_PV}/bitcoin-v${PV}.tar.gz.asc
+		https://github.com/kristapsk/bitcoin-core-patches/releases/download/v${KRISTAPSK_PV}/bitcoin-kristapsk-patches-${KRISTAPSK_PV}.tar.gz.asc
+	)
 "
 
 LICENSE="MIT"
@@ -44,6 +48,7 @@ BDEPEND="
 	>=sys-devel/autoconf-2.69
 	>=sys-devel/automake-1.13
 	dev-qt/linguist-tools:5
+	verify-sig? ( app-crypt/openpgp-keys-kristapsk )
 "
 
 DOCS=(
@@ -58,6 +63,8 @@ DOCS=(
 	doc/REST-interface.md
 	doc/tor.md
 )
+
+VERIFY_SIG_OPENPGP_KEY_PATH=${BROOT}/usr/share/openpgp-keys/KristapsKaupe.asc
 
 S="${WORKDIR}/bitcoin-${PV}"
 
