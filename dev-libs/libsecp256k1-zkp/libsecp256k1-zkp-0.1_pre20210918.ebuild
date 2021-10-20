@@ -8,7 +8,7 @@ inherit autotools eutils
 MyPN=secp256k1-zkp
 DESCRIPTION="Experimental fork of libsecp256k1 with support for Pedersen commitments and range proofs"
 HOMEPAGE="https://github.com/ElementsProject/secp256k1-zkp"
-COMMITHASH="6da00ec6245e128ffc5dca692a4d541f8b91600d"
+COMMITHASH="7fec4e7acc66fb868a8546f36afd41742f381536"
 SRC_URI="${HOMEPAGE}/archive/${COMMITHASH}.tar.gz -> ${PN}-v${PV}.tgz"
 
 LICENSE="MIT"
