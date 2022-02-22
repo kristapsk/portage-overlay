@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -14,7 +14,7 @@ SRC_URI="${HOMEPAGE}/archive/${COMMITHASH}.tar.gz -> ${PN}-v${PV}.tgz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="+asm +ecdh ecdsa-s2c experimental external-default-callbacks extrakeys generator gmp musig rangeproof +recovery schnorrsig surjectionproof test test-openssl whitelist"
+IUSE="+asm +ecdh ecdsa-s2c experimental external-default-callbacks extrakeys generator musig rangeproof +recovery schnorrsig surjectionproof test test-openssl whitelist"
 RESTRICT="!test? ( test )"
 
 REQUIRED_USE="
@@ -30,7 +30,6 @@ REQUIRED_USE="
 	whitelist? ( experimental rangeproof )
 "
 RDEPEND="
-	gmp? ( dev-libs/gmp:0= )
 "
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
@@ -70,7 +69,6 @@ src_configure() {
 		$(use_enable test tests) \
 		$(use_enable test-openssl openssl-tests) \
 		--with-asm=$asm_opt \
-		--with-bignum=$(usex gmp gmp no) \
 		$(use_enable {,module-}ecdh) \
 		$(use_enable {,module-}ecdsa-s2c) \
 		$(use_enable {,module-}extrakeys) \
