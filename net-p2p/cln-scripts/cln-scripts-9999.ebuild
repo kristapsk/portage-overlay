@@ -20,7 +20,7 @@ DEPEND=""
 RDEPEND="
 	${DEPEND}
 	app-misc/jq
-	net-p2p/c-lightning
+	|| ( net-p2p/c-lightning net-p2p/core-lightning )
 "
 BDEPEND=""
 
