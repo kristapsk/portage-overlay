@@ -29,6 +29,7 @@ src_install() {
 	exeinto /opt/cln-scripts
 	doexe cln-*.sh
 
+	dosym /opt/cln-scripts/cln-channelbalance.sh /usr/bin/cln-channelbalance
 	dosym /opt/cln-scripts/cln-feereport.sh /usr/bin/cln-feereport
 	dosym /opt/cln-scripts/cln-random-traffic-gen.sh /usr/bin/cln-random-traffic-gen
 	dosym /opt/cln-scripts/cln-walletbalance.sh /usr/bin/cln-walletbalance
