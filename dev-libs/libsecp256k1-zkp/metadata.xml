@@ -4,6 +4,7 @@
 	<use>
 		<flag name="asm">Enable x86_64 assembly optimisation</flag>
 		<flag name="ecdh">Enable ECDH shared secret computation</flag>
+		<flag name="ecdsa-adaptor">Enable ECDSA adaptor module</flag>
 		<flag name="ecdsa-s2c">Enable ECDSA sign-to-contract module</flag>
 		<flag name="experimental">Allow experimental USE flags</flag>
 		<flag name="external-default-callbacks">Enable external default callback functions</flag>
@@ -14,7 +15,6 @@
 		<flag name="recovery">Enable ECDSA pubkey recovery module</flag>
 		<flag name="schnorrsig">Enable Schnorr signature module</flag>
 		<flag name="surjectionproof">Enable surjection proof module</flag>
-		<flag name="test-openssl">Enable OpenSSL comparison tests</flag>
 		<flag name="whitelist">Enable key whitelisting module</flag>
 	</use>
 	<upstream>

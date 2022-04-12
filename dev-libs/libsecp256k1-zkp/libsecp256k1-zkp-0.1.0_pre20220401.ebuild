@@ -3,37 +3,35 @@
 
 EAPI=7
 
-inherit autotools eutils
+inherit autotools
 
 MyPN=secp256k1-zkp
 DESCRIPTION="Experimental fork of libsecp256k1 with support for Pedersen commitments and range proofs"
 HOMEPAGE="https://github.com/ElementsProject/secp256k1-zkp"
-COMMITHASH="7fec4e7acc66fb868a8546f36afd41742f381536"
+COMMITHASH="6c0aecf72b1f4290f50302440065392715d6240a"
 SRC_URI="${HOMEPAGE}/archive/${COMMITHASH}.tar.gz -> ${PN}-v${PV}.tgz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
-IUSE="+asm +ecdh ecdsa-s2c experimental external-default-callbacks extrakeys generator musig rangeproof +recovery schnorrsig surjectionproof test test-openssl whitelist"
+IUSE="+asm +ecdh ecdsa-adaptor ecdsa-s2c experimental external-default-callbacks +extrakeys generator musig rangeproof +recovery +schnorrsig surjectionproof test whitelist"
 RESTRICT="!test? ( test )"
 
 REQUIRED_USE="
 	asm? ( || ( amd64 arm ) arm? ( experimental ) )
+	ecdsa-adaptor? ( experimental )
 	ecdsa-s2c? ( experimental )
-	extrakeys? ( experimental )
 	generator? ( experimental )
 	musig? ( experimental schnorrsig )
 	rangeproof? ( experimental generator )
-	schnorrsig? ( experimental extrakeys )
+	schnorrsig? ( extrakeys )
 	surjectionproof? ( experimental rangeproof )
-	test-openssl? ( test )
 	whitelist? ( experimental rangeproof )
 "
 RDEPEND="
 "
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	test-openssl? ( dev-libs/openssl:0 )
 "
 
 S="${WORKDIR}/${MyPN}-${COMMITHASH}"
@@ -67,9 +65,10 @@ src_configure() {
 		$(use_enable experimental) \
 		$(use_enable external-default-callbacks) \
 		$(use_enable test tests) \
-		$(use_enable test-openssl openssl-tests) \
+		$(use_enable test exhaustive-tests) \
 		--with-asm=$asm_opt \
 		$(use_enable {,module-}ecdh) \
+		$(use_enable {,module-}ecdsa-adaptor) \
 		$(use_enable {,module-}ecdsa-s2c) \
 		$(use_enable {,module-}extrakeys) \
 		$(use_enable {,module-}generator) \
@@ -85,5 +84,5 @@ src_configure() {
 src_install() {
 	dodoc README.md
 	emake DESTDIR="${D}" install
-	find "${D}" -name '*.la' -delete || die
+	find "${ED}" -name '*.la' -delete || die
 }
