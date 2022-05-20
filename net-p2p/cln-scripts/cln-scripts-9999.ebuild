@@ -14,9 +14,11 @@ EGIT_BRANCH="master"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="-test"
 
-DEPEND=""
+DEPEND="
+	test? ( dev-util/bats )
+"
 RDEPEND="
 	${DEPEND}
 	app-misc/jq
@@ -24,8 +26,17 @@ RDEPEND="
 "
 BDEPEND=""
 
+src_test() {
+	if use test; then
+		cd "${S}"/tests || die
+		./test_all.sh
+	fi
+}
+
 src_install() {
 	dodir /opt/cln-scripts
+	insinto /opt/cln-scripts
+	doins inc.common.sh
 	exeinto /opt/cln-scripts
 	doexe cln-*.sh
 
