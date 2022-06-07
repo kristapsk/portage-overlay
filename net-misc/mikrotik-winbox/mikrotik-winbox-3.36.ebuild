@@ -8,7 +8,7 @@ inherit eutils
 
 DESCRIPTION="Configuration tool for MikroTik RouterOS"
 HOMEPAGE="https://www.mikrotik.com"
-SRC_URI="https://download.mikrotik.com/routeros/winbox/${PV}/winbox.exe -> winbox-${PV}.exe"
+SRC_URI="https://download.mikrotik.com/routeros/winbox/${PV}/winbox64.exe -> winbox64-${PV}.exe"
 
 LICENSE=""
 SLOT="0"
@@ -25,7 +25,7 @@ src_unpack() {
 
 src_install() {
 	insinto /opt
-	newins winbox-${PV}.exe winbox.exe
+	newins winbox64-${PV}.exe winbox64.exe
 	dobin ${FILESDIR}/winbox
 	domenu ${FILESDIR}/winbox.desktop
 }
