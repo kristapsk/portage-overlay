@@ -40,6 +40,7 @@ src_install() {
 	exeinto /opt/cln-scripts
 	doexe cln-*.sh
 
+	dosym /opt/cln-scripts/cln-amboss-ping.sh /usr/bin/cln-amboss-ping
 	dosym /opt/cln-scripts/cln-channelbalance.sh /usr/bin/cln-channelbalance
 	dosym /opt/cln-scripts/cln-feereport.sh /usr/bin/cln-feereport
 	dosym /opt/cln-scripts/cln-prune-protector.sh /usr/bin/cln-prune-protector
