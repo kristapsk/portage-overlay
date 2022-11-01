@@ -45,5 +45,6 @@ src_install() {
 	dosym /opt/cln-scripts/cln-feereport.sh /usr/bin/cln-feereport
 	dosym /opt/cln-scripts/cln-prune-protector.sh /usr/bin/cln-prune-protector
 	dosym /opt/cln-scripts/cln-random-traffic-gen.sh /usr/bin/cln-random-traffic-gen
+	dosym /opt/cln-scripts/cln-routing-summary.sh /usr/bin/cln-routing-summary
 	dosym /opt/cln-scripts/cln-walletbalance.sh /usr/bin/cln-walletbalance
 }
