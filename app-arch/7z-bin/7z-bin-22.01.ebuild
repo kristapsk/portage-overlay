@@ -21,6 +21,8 @@ DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
+S="${WORKDIR}"
+
 src_install() {
 	exeinto /usr/bin
 	if use static; then
