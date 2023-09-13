@@ -4,8 +4,6 @@
 
 EAPI=7
 
-inherit eutils
-
 DESCRIPTION="Configuration tool for MikroTik RouterOS"
 HOMEPAGE="https://www.mikrotik.com"
 SRC_URI="https://download.mikrotik.com/routeros/winbox/${PV}/winbox64.exe -> winbox64-${PV}.exe"
