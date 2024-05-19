@@ -30,14 +30,6 @@ KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc64 ~riscv ~x86"
 IUSE="doc"
 
 IDEPEND="app-eselect/eselect-zig"
-# Zig provides its standard library in source form "/opt/zig-bin-{PV}/lib/",
-# and all other Zig libraries are meant to be consumed in source form,
-# because they can use compile-time mechanics (and it is easier for distributions to patch them)
-# Here we use this feature for fixing programs that use standard library
-# Note: Zig build system is also part of standard library, so we can fix it too
-PATCHES=(
-	"${FILESDIR}/zig-0.11.0-first-try-getconf.patch"
-)
 
 QA_PREBUILT="opt/${P}/zig"
 
