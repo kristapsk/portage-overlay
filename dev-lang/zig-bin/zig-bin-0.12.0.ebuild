@@ -9,7 +9,6 @@ SRC_URI="
 	amd64? ( https://ziglang.org/download/${PV}/zig-linux-x86_64-${PV}.tar.xz )
 	arm? ( https://ziglang.org/download/${PV}/zig-linux-armv7a-${PV}.tar.xz )
 	arm64? ( https://ziglang.org/download/${PV}/zig-linux-aarch64-${PV}.tar.xz )
-	ppc? ( https://ziglang.org/download/${PV}/zig-linux-powerpc-${PV}.tar.xz )
 	ppc64? ( https://ziglang.org/download/${PV}/zig-linux-powerpc64le-${PV}.tar.xz )
 	riscv? ( https://ziglang.org/download/${PV}/zig-linux-riscv64-${PV}.tar.xz )
 	x86? ( https://ziglang.org/download/${PV}/zig-linux-x86-${PV}.tar.xz )"
@@ -27,7 +26,7 @@ SRC_URI="
 # lib/libc/glibc: BSD HPND ISC inner-net LGPL-2.1+
 LICENSE="MIT Apache-2.0-with-LLVM-exceptions || ( UoI-NCSA MIT ) || ( Apache-2.0-with-LLVM-exceptions Apache-2.0 MIT BSD-2 ) public-domain BSD-2 ZPL ISC HPND BSD inner-net LGPL-2.1+"
 SLOT="$(ver_cut 1-2)"
-KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc ~ppc64 ~riscv ~x86"
+KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc64 ~riscv ~x86"
 IUSE="doc"
 
 IDEPEND="app-eselect/eselect-zig"
