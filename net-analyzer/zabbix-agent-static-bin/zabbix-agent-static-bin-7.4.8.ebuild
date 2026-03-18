@@ -18,6 +18,8 @@ RDEPEND="${DEPEND}
 	acct-user/zabbix"
 BDEPEND=""
 
+S="${WORKDIR}"
+
 src_install() {
 	insinto /etc/zabbix
 	doins "${S}"/conf/zabbix_agentd.conf
